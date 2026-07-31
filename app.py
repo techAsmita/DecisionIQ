@@ -28,24 +28,24 @@ real values (marked with `# TODO(module-upgrade)` comments).
 """
 
 import streamlit as st
-import pandas as pd
-import os
-from dotenv import load_dotenv
-
-load_dotenv()  # reads .env so os.environ.get("GEMINI_API_KEY") works in modules/ai.py
-
-from modules.data import ingest_pipeline, load_from_sqlite, REQUIRED_COLUMNS
-from modules import analytics
-from modules import decision_engine
-from modules import forecasting
-from modules import ai
-from modules import reports
 
 st.set_page_config(
     page_title="DecisionIQ | Pharma Decision Intelligence",
     page_icon="💊",
     layout="wide",
 )
+
+import pandas as pd
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+from modules.data import ingest_pipeline, load_from_sqlite, REQUIRED_COLUMNS
+from modules import analytics
+from modules import decision_engine
+from modules import forecasting
+from modules import ai
 
 # ---------------------------------------------------------------------------
 # Enterprise theme (dark sidebar / white content / blue-green-orange-red)
