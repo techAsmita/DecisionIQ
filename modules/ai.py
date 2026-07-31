@@ -196,7 +196,16 @@ write in prose, the way a consultant would summarize a finding in a
 client meeting."""
 
     response = model.generate_content(prompt)
-    return response.text.strip()
+
+    text = response.text.strip()
+
+    # Remove markdown formatting
+    text = text.replace("**", "")
+    text = text.replace("__", "")
+    text = text.replace("*", "")
+    text = text.replace("_", "")
+
+    return text
 
 
 def ask_question(question: str) -> dict:

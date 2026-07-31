@@ -46,6 +46,7 @@ from modules import analytics
 from modules import decision_engine
 from modules import forecasting
 from modules import ai
+from modules import reports
 
 # ---------------------------------------------------------------------------
 # Enterprise theme (dark sidebar / white content / blue-green-orange-red)
