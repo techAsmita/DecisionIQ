@@ -45,7 +45,7 @@ import sqlite3
 import pandas as pd
 from pathlib import Path
 
-DB_PATH = Path(__file__).resolve().parent.parent / "database" / "sales.db"
+DB_PATH = Path(__file__).resolve().parent.parent / "data" / "sales.db"
 
 SCHEMA_DESCRIPTION = """
 Table: sales
