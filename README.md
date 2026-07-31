@@ -229,16 +229,15 @@ streamlit run app.py
 
 ---
 
-# 📄 Executive Report
+## 📄 Executive Report
 
-DecisionIQ automatically generates downloadable executive PDF reports containing:
+DecisionIQ automatically generates professional executive reports in PDF format, summarizing KPIs, business insights, and AI-driven strategic recommendations.
 
-- Executive Summary
-- Business Insights
-- Strategic Recommendations
-- Performance Metrics
-
-These reports are designed for management presentations and executive decision-making.
+<p align="center">
+  <a href="screenshots/DecisionIQ_Executive_Report.pdf">
+    📥 Download Sample Executive Report (PDF)
+  </a>
+</p>
 
 ---
 
