@@ -138,6 +138,8 @@ def regional_revenue_chart(df: pd.DataFrame) -> go.Figure:
     region_rev = df.groupby("Region", as_index=False)["Revenue"].sum().sort_values("Revenue", ascending=False)
     fig = px.bar(region_rev, x="Region", y="Revenue", title="Revenue by Region",
                  color="Revenue", color_continuous_scale=SEQUENTIAL_BLUES)
+    # Bar height already shows the value; the color scale legend only took up width
+    fig.update_coloraxes(showscale=False)
     return apply_enterprise_layout(fig)
 
 
@@ -145,6 +147,8 @@ def therapy_revenue_chart(df: pd.DataFrame) -> go.Figure:
     therapy_rev = df.groupby("Therapy_Area", as_index=False)["Revenue"].sum().sort_values("Revenue", ascending=False)
     fig = px.bar(therapy_rev, x="Therapy_Area", y="Revenue", title="Revenue by Therapy Area",
                  color="Revenue", color_continuous_scale=SEQUENTIAL_BLUES)
+    # Bar height already shows the value; the color scale legend only took up width
+    fig.update_coloraxes(showscale=False)
     return apply_enterprise_layout(fig)
 
 
@@ -162,6 +166,8 @@ def inventory_chart(df: pd.DataFrame) -> go.Figure:
     inv = df.groupby("Drug_Name", as_index=False)["Inventory"].mean().sort_values("Inventory")
     fig = px.bar(inv, x="Drug_Name", y="Inventory", title="Average Inventory by Drug",
                  color="Inventory", color_continuous_scale=["#FCA5A5", CRITICAL])
+    # Bar height already shows the value; the color scale legend only took up width
+    fig.update_coloraxes(showscale=False)
     return apply_enterprise_layout(fig)
 
 
@@ -180,6 +186,8 @@ def discount_chart(df: pd.DataFrame) -> go.Figure:
 
     fig = px.bar(grouped, x="Region", y="Discount_Rate", title="Discount Rate by Region (%)",
                  color="Discount_Rate", color_continuous_scale=["#FED7AA", WARNING])
+    # Bar height already shows the value; the color scale legend only took up width
+    fig.update_coloraxes(showscale=False)
     return apply_enterprise_layout(fig)
 
 
@@ -187,7 +195,10 @@ def customer_segmentation_chart(df: pd.DataFrame) -> go.Figure:
     seg = df.groupby("Customer_Type", as_index=False)["Revenue"].sum()
     fig = px.pie(seg, names="Customer_Type", values="Revenue", title="Revenue by Customer Type",
                  hole=0.4, color_discrete_sequence=CATEGORY_PALETTE)
-    return apply_enterprise_layout(fig)
+    fig = apply_enterprise_layout(fig)
+    # Legend under the donut — at the top it collided with the chart title
+    fig.update_layout(legend=dict(orientation="h", yanchor="top", y=-0.05, xanchor="center", x=0.5))
+    return fig
 
 
 def profit_heatmap(df: pd.DataFrame) -> go.Figure:

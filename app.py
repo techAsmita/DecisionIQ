@@ -63,6 +63,17 @@ st.markdown(
     f"""
     <style>
     .stApp {{ background-color: #F8FAFC; }}
+    /* No bounce / extra scroll past the top or bottom */
+    html, body, .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {{
+        overscroll-behavior: none;
+    }}
+    /* Streamlit leaves ~10rem of empty space under every page by default */
+    .block-container {{ padding-bottom: 2rem !important; }}
+    @media (max-width: 640px) {{
+        .block-container {{ padding-top: 3.5rem !important; }}
+        .landing-hero {{ padding-top: 1rem !important; }}
+        .landing-title {{ font-size: 2rem !important; }}
+    }}
     section[data-testid="stSidebar"] {{
         background-color: {INK};
     }}
@@ -71,6 +82,14 @@ st.markdown(
     }}
     section[data-testid="stSidebar"] .stRadio label {{
         font-size: 0.95rem;
+    }}
+    /* Sidebar buttons: the light text above was invisible on the default white button */
+    section[data-testid="stSidebar"] .stButton button {{
+        background-color: transparent;
+        border: 1px solid #334155;
+    }}
+    section[data-testid="stSidebar"] .stButton button:hover {{
+        border-color: {PRIMARY};
     }}
     h1, h2, h3 {{
         font-family: "Segoe UI", system-ui, sans-serif;
@@ -469,14 +488,14 @@ elif page == "📈 Forecasting":
         "Next Month Forecast",
         f"${result['next_month_forecast']:,.0f}",
         help=f"{result['confidence_level']}% confidence interval: "
-             f"${result['next_month_forecast_low']:,.0f} – ${result['next_month_forecast_high']:,.0f}",
+             f"\\${result['next_month_forecast_low']:,.0f} – \\${result['next_month_forecast_high']:,.0f}",
     )
     c2.metric("RMSE", f"${result['rmse']:,.0f}")
     c3.metric("MAE", f"${result['mae']:,.0f}")
     c4.metric("R² Score", f"{result['r2']:.3f}")
     st.caption(
         f"📊 {result['confidence_level']}% confidence interval for next month: "
-        f"**${result['next_month_forecast_low']:,.0f} – ${result['next_month_forecast_high']:,.0f}**"
+        f"**\\${result['next_month_forecast_low']:,.0f} – \\${result['next_month_forecast_high']:,.0f}**"
     )
 
     with st.expander("💡 Why Random Forest?"):

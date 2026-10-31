@@ -150,9 +150,18 @@ The platform combines **Business Intelligence**, **Machine Learning**, and **Gen
 DecisionIQ
 │
 ├── .streamlit/
-├── assets/
+│   └── config.toml              # Theme
 ├── data/
+│   ├── sample_sales.csv         # Demo dataset (5,000 transactions)
+│   └── generate_sample_data.py  # Regenerates the demo dataset
 ├── modules/
+│   ├── data.py                  # CSV validation, cleaning, SQLite loading
+│   ├── analytics.py             # KPIs and Plotly charts
+│   ├── decision_engine.py       # Issue detection and recommendations
+│   ├── forecasting.py           # Random Forest revenue forecast
+│   ├── ai.py                    # Gemini text-to-SQL and summaries
+│   └── reports.py               # PDF report generation
+├── database/                    # Created on first run (sales.db, git-ignored)
 ├── screenshots/
 │   ├── 01_landing_page.png
 │   ├── 02_data_upload.png
@@ -163,6 +172,7 @@ DecisionIQ
 │   └── 07_ai_strategy_consultant.png
 │
 ├── app.py
+├── .env.example
 ├── requirements.txt
 └── README.md
 ```
@@ -197,28 +207,28 @@ Strategic Recommendations
 
 # ⚙️ Installation
 
+> **Requires Python 3.11 or 3.12.** The pinned `pandas`/`numpy` versions don't install on Python 3.13.
+
 ### Clone the Repository
 
 ```bash
 git clone https://github.com/techAsmita/DecisionIQ.git
-```
-
-Move into the project directory
-
-```bash
 cd DecisionIQ
 ```
 
-Install the required dependencies
+Create a virtual environment and install the dependencies
 
 ```bash
+python3.11 -m venv venv
+source venv/bin/activate        # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-Create a `.env` file
+Add your Gemini API key (only needed for the AI Strategy Consultant — every other page works without it)
 
-```env
-GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+```bash
+cp .env.example .env
+# then open .env and set GEMINI_API_KEY=your_key
 ```
 
 Run the application
@@ -226,6 +236,8 @@ Run the application
 ```bash
 streamlit run app.py
 ```
+
+Open http://localhost:8501 and click **Load Demo Dataset** to explore with the bundled sample data, or upload your own CSV.
 
 ---
 
